@@ -1,0 +1,32 @@
+GESTOR DE TAREAS — USO EN LOCAL (OTRA PC)
+==========================================
+Requisito: Node.js v18 o superior (verificado con v24.20.0).
+Comprueba con:  node -v   y   npm -v
+
+PASO 1 — Backend (terminal 1):
+  cd server
+  npm install
+  npm run dev
+  → API en http://localhost:3001/api/tareas
+  Prueba: curl http://localhost:3001/api/tareas
+
+PASO 2 — Frontend (terminal 2, otra ventana):
+  cd client
+  npm install
+  npm run dev
+  → App en http://localhost:5173
+
+ATAJO AUTOMÁTICO (Windows):
+  Doble clic a INICIAR-LOCAL.ps1 (o clic derecho → Ejecutar con PowerShell).
+  Abre 2 ventanas: una con la API y otra con Vite.
+
+PRODUCCIÓN (Render + Vercel, ya desplegado):
+  API: https://tareas-api-pndy.onrender.com/api/tareas
+  App: https://tareas-app-parkeo-pe.vercel.app
+  Repo: https://github.com/NICOLAEATS/tareas-app
+
+NOTAS:
+- No hay .env que copiar: en local funciona sin configurar nada.
+- client/.env.example es solo plantilla para producción (VITE_API_URL).
+- node_modules/ y dist/ NO vienen en este paquete: se generan con npm install / npm run build.
+- Si el puerto 3001 está ocupado: npx kill-port 3001 (o cierra la otra terminal).
