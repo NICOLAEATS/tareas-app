@@ -57,20 +57,14 @@ gh repo create tareas-app --public --source=. --push
 # repo: github.com/NICOLAEATS/tareas-app
 ```
 
-## 5. Backend en Render (https://render.com)
+## 5. Backend en Render (https://render.com) — HECHO
 
-1. Login con GitHub (usa tu cuenta NICOLAEATS, ya autenticada en `gh`).
-2. New → Web Service → conecta `tareas-app`.
-3. Configura:
-   - Name: `tareas-api`
-   - Root Directory: `server`
-   - Build Command: `npm install`
-   - Start Command: `node index.js`
-   - Instance Type: Free
-   - Env var: `CLIENT_URL = *` (temporal, para probar)
-4. Deploy, espera 2-5 min.
-5. Prueba: `https://tareas-api.onrender.com/api/tareas` debe devolver JSON.
-   Reemplaza `tareas-api` por el nombre real que te dé Render.
+- Repo: https://github.com/NICOLAEATS/tareas-app rama `main`
+- Servicio: `tareas-api` id `srv-db8rb86i0phs738odsrg`
+- URL pública: https://tareas-api-pndy.onrender.com/api/tareas — probado 200 OK
+- Dashboard: https://dashboard.render.com/web/srv-db8rb86i0phs738odsrg
+- Config: Root `server`, Build `npm install`, Start `node index.js`, Free, `CLIENT_URL=*` temporal
+- Deploy inicial: commit `07abd50` en progreso, API ya responde JSON
 
 ## 6. Frontend en Vercel (https://vercel.com)
 
@@ -79,7 +73,7 @@ gh repo create tareas-app --public --source=. --push
 3. Configura:
    - Build Command: `npm run build`
    - Output Directory: `dist`
-   - Env var: `VITE_API_URL = https://tareas-api.onrender.com/api/tareas` (usa tu URL real de Render)
+   - Env var: `VITE_API_URL = https://tareas-api-pndy.onrender.com/api/tareas` (URL real de Render)
 4. Deploy (~1 min): `https://tareas-app.vercel.app`
 
 ## 7. Seguridad final (paso 4 de la guía)
