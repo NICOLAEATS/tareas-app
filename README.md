@@ -1,4 +1,9 @@
-# Gestor de Tareas — React + Node.js (Guía 8)
+# Gestor de Tareas — React + Node.js (Guía 8) — DESPLEGADO
+
+- Repo: https://github.com/NICOLAEATS/tareas-app (`main`)
+- API Render: https://tareas-api-pndy.onrender.com/api/tareas (200 OK, CORS restringido)
+- Frontend Vercel: https://tareas-app-parkeo-pe.vercel.app (200 OK, título Mis Tareas)
+- Dashboard Render: https://dashboard.render.com/web/srv-db8rb86i0phs738odsrg
 
 App full-stack: frontend React (Vite) + backend Node.js + Express, comunicados por API REST + JSON.
 
