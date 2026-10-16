@@ -101,7 +101,8 @@ Guarda (Render redeploya solo). Ya no uses `*`.
 
 - Repo con `client/` + `server/` + README.
 - URL frontend Vercel + URL API Render `/api/tareas`.
-- Capturas: panel Render, panel Vercel, app en vivo con CRUD.
+- Capturas en `capturas/`: `01-backend-GET-tareas.png` (JSON real), `02-frontend-app-en-vivo.png` (app con 3 tareas, POST 201 verificado en Network: OPTIONS 204 + POST 201 a `tareas-api-pndy`), `03-backend-GET-tareas.json`.
+- Pendiente manual: ninguno. Paneles `04-panel-render.png` (tareas-api Live) y `05-panel-vercel.png` (Production Ready) capturados autenticados.
 - Sin `.env` ni credenciales en ningún commit.
 
 Criterio guía (20 pts): API en Render 6, frontend en Vercel consumiendo API prod 6, Git + env 4, README con URLs y capturas 4.
