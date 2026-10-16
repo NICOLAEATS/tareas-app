@@ -1,0 +1,108 @@
+# Gestor de Tareas — React + Node.js (Guía 8)
+
+App full-stack: frontend React (Vite) + backend Node.js + Express, comunicados por API REST + JSON.
+
+## 1. Correr en local (dos terminales)
+
+Terminal 1 — backend:
+```
+cd server
+npm install
+npm run dev
+# API en http://localhost:3001/api/tareas
+```
+
+Terminal 2 — frontend:
+```
+cd client
+npm install
+npm run dev
+# App en http://localhost:5173
+```
+
+Prueba rápida sin navegador:
+```
+curl http://localhost:3001/api/tareas
+curl -X POST http://localhost:3001/api/tareas -H "Content-Type: application/json" -d "{\"titulo\":\"Mi tarea\"}"
+curl -X PUT http://localhost:3001/api/tareas/1 -H "Content-Type: application/json" -d "{\"completada\":true}"
+curl -X DELETE http://localhost:3001/api/tareas/2
+```
+
+Verificado: GET/POST/PUT/DELETE OK, `npm run build` genera `client/dist/` OK.
+
+## 2. Endpoints
+
+| Método | Ruta | Respuesta |
+|---|---|---|
+| GET | /api/tareas | 200 + JSON array |
+| POST | /api/tareas `{"titulo"}` | 201 + tarea creada, 400 si falta título |
+| PUT | /api/tareas/:id `{"completada":bool}` | 200 + tarea, 404 si no existe |
+| DELETE | /api/tareas/:id | 204, 404 si no existe |
+
+## 3. Archivos cambiados para producción (ya aplicados)
+
+- `server/index.js`: `process.env.PORT || 3001` + `cors({ origin: process.env.CLIENT_URL || "http://localhost:5173" })`
+- `client/src/App.jsx`: `const API = import.meta.env.VITE_API_URL || "http://localhost:3001/api/tareas"`
+- `client/.env.example`: plantilla (no subir `.env` real)
+- `.gitignore`: `node_modules/`, `dist/`, `.env`, `.env.*`
+
+## 4. Subir a GitHub
+
+```powershell
+cd "C:\Users\Nouch\Desktop\uac\plataformas\node.js\GESTOR DE TAREAS"
+git init
+git add server client .gitignore README.md
+git commit -m "feat: gestor tareas React+Node listo para Render+Vercel"
+gh repo create tareas-app --public --source=. --push
+# repo: github.com/NICOLAEATS/tareas-app
+```
+
+## 5. Backend en Render (https://render.com)
+
+1. Login con GitHub (usa tu cuenta NICOLAEATS, ya autenticada en `gh`).
+2. New → Web Service → conecta `tareas-app`.
+3. Configura:
+   - Name: `tareas-api`
+   - Root Directory: `server`
+   - Build Command: `npm install`
+   - Start Command: `node index.js`
+   - Instance Type: Free
+   - Env var: `CLIENT_URL = *` (temporal, para probar)
+4. Deploy, espera 2-5 min.
+5. Prueba: `https://tareas-api.onrender.com/api/tareas` debe devolver JSON.
+   Reemplaza `tareas-api` por el nombre real que te dé Render.
+
+## 6. Frontend en Vercel (https://vercel.com)
+
+1. Login con GitHub → Add New → Project → importa `tareas-app`.
+2. Edit Root Directory → `client` (debe detectar Vite).
+3. Configura:
+   - Build Command: `npm run build`
+   - Output Directory: `dist`
+   - Env var: `VITE_API_URL = https://tareas-api.onrender.com/api/tareas` (usa tu URL real de Render)
+4. Deploy (~1 min): `https://tareas-app.vercel.app`
+
+## 7. Seguridad final (paso 4 de la guía)
+
+En Render → tu servicio → Environment → cambia `CLIENT_URL` a tu URL real de Vercel:
+```
+CLIENT_URL=https://tareas-app.vercel.app
+```
+Guarda (Render redeploya solo). Ya no uses `*`.
+
+## 8. Diagnóstico
+
+- `curl` a la API primero: si falla, el problema es backend.
+- F12 → Network → filtra `tareas`: método, URL, status, JSON.
+- `node -v` debe ser v18+.
+- Si `VITE_API_URL` no toma efecto: se lee al compilar → cambia en panel Vercel + redeploy; en local reinicia `npm run dev`.
+- Render free duerme tras 15 min sin uso: primera petición tarda ~1 min, es normal.
+
+## 9. Entregable
+
+- Repo con `client/` + `server/` + README.
+- URL frontend Vercel + URL API Render `/api/tareas`.
+- Capturas: panel Render, panel Vercel, app en vivo con CRUD.
+- Sin `.env` ni credenciales en ningún commit.
+
+Criterio guía (20 pts): API en Render 6, frontend en Vercel consumiendo API prod 6, Git + env 4, README con URLs y capturas 4.

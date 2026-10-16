@@ -1,0 +1,10 @@
+# Dependencias (se regeneran con npm install)
+node_modules/
+# Build de produccion (lo genera Vercel)
+dist/
+# Variables de entorno locales (URLs de produccion, tokens)
+.env
+.env.*
+# Logs
+*.log
+.DS_Store
